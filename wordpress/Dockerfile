@@ -1,4 +1,4 @@
-M ubuntu:14.04
+FROM ubuntu:14.04
 MAINTAINER  Utshav Singh<utshav2008@gmail.com>
 
 RUN apt-get update -y
