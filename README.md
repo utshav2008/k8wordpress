@@ -17,3 +17,24 @@ I will discuss below one by one:
 - Docker file for Wordpress
 - Deployment of Wordpress and Mysql in Kubernetes Cluster
 - CI/CD Pipeline (Optional)
+
+## Wordpress:
+
+In order to install Wordpress, we need a LAMP stack. So, the docker file inside wordpress directory takes care of all the setup and gives you an image for Wordpress. This image can be used in the kubernetes cluster. 
+
+Two ways to import this image in Kuberenets Cluster:
+- Build the docker image in the Kubernetes node. This will make the image locally available inside Kubernetes. You can pass below in the deployment.yml file
+```sh
+- image: wordpress-utshav-demo:latest
+  imagePullPolicy: IfNotPresent  # This will not pull the image from docker hub if the image is present locally.
+  name: wordpress
+```
+- Other way is to build the docker image in your local machine and push it to the docker hub repository. You can then refer it in the deployment.yml and the image will be pulled.
+
+How to build the image:
+```sh
+# cd wordpress
+# docker build -t wordpress-custom .
+# docker images | grep wordpress-custom # This is to verify if the image was built successfully
+```
+It takes DB_HOST, DB_PASSWORD, DB_NAME and DB_USER as environment variables. This is for connecting to MySQL server.
