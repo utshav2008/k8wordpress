@@ -44,6 +44,7 @@ RUN tar -xzf wordpress.tar.gz -C /usr/src/
 RUN chown -R www-data:www-data /usr/src/wordpress
 RUN cp -pr /usr/src/wordpress/* /var/www/html
 COPY entrypoint.sh /usr/local/bin/
+RUN chmod a+x /usr/local/bin/entrypoint.sh
 #=============================================================================
 
 EXPOSE 80
