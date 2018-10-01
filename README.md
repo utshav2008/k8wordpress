@@ -1,5 +1,7 @@
 # k8wordpress
 
+<img width="427" alt="k8wordpress" src="https://user-images.githubusercontent.com/16876746/46309090-03600680-c5d9-11e8-8077-9d5873dd495a.png">
+
 This is a custom built setup for Wordpress in Kubernetes. When I say custom built, it means that I am not using Wordpress images available in Docker hub. I have written a docker file to install LAMP stack and Wordpress in it.
 
 Below are the components those are being used:
