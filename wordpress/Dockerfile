@@ -40,7 +40,7 @@ RUN find /var/www -type f -exec chmod 664 {} +
 #===================================WORDPRESS=================================
 RUN curl -o wordpress.tar.gz "https://wordpress.org/wordpress-4.9.8.tar.gz"
 RUN tar -xzf wordpress.tar.gz -C /usr/src/
-RUN rm wordpress.tar.gz
+#RUN rm wordpress.tar.gz
 RUN chown -R www-data:www-data /usr/src/wordpress
 RUN cp -pr /usr/src/wordpress/* /var/www/html
 #=============================================================================
