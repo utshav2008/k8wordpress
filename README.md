@@ -37,4 +37,5 @@ $ cd wordpress
 $ docker build -t wordpress-custom .
 $ docker images | grep wordpress-custom # This is to verify if the image was built successfully
 ```
+
 It takes DB_HOST, DB_PASSWORD, DB_NAME and DB_USER as environment variables. This is for connecting to MySQL server.
