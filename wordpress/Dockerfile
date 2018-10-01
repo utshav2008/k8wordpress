@@ -18,6 +18,13 @@ RUN locale-gen fr_FR.UTF-8
 RUN locale-gen en_US.UTF-8
 RUN locale-gen de_DE.UTF-8
 
+#==============================PHP==========================================
+# config PHP
+# we want a dev server which shows PHP errors
+RUN sed -i -e 's/^error_reporting\s*=.*/error_reporting = E_ALL/' /etc/php5/apache2/php.ini
+RUN sed -i -e 's/^display_errors\s*=.*/display_errors = On/' /etc/php5/apache2/php.ini
+RUN sed -i -e 's/^zlib.output_compression\s*=.*/zlib.output_compression = Off/' /etc/php5/apache2/php.ini
+
 EXPOSE 80
 CMD ["/usr/sbin/apache2ctl","-DFOREGROUND"]
 
