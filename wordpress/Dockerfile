@@ -19,8 +19,7 @@ RUN locale-gen en_US.UTF-8
 RUN locale-gen de_DE.UTF-8
 
 #==============================PHP==========================================
-# config PHP
-# we want a dev server which shows PHP errors
+# config PHP to show errors
 RUN sed -i -e 's/^error_reporting\s*=.*/error_reporting = E_ALL/' /etc/php5/apache2/php.ini
 RUN sed -i -e 's/^display_errors\s*=.*/display_errors = On/' /etc/php5/apache2/php.ini
 RUN sed -i -e 's/^zlib.output_compression\s*=.*/zlib.output_compression = Off/' /etc/php5/apache2/php.ini
@@ -32,13 +31,13 @@ RUN a2enmod rewrite
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 # allow .htaccess files
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-
+# changing ownership 
 RUN chgrp -R www-data /var/www
 RUN find /var/www -type d -exec chmod 775 {} +
 RUN find /var/www -type f -exec chmod 664 {} +
 
 #===================================WORDPRESS=================================
-
+# getting wordpress
 RUN curl -o wordpress.tar.gz "https://wordpress.org/wordpress-4.9.8.tar.gz"
 RUN tar -xzf wordpress.tar.gz -C /usr/src/
 RUN rm wordpress.tar.gz
