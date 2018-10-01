@@ -46,5 +46,7 @@ RUN cp -pr /usr/src/wordpress/* /var/www/html
 #=============================================================================
 
 EXPOSE 80
+ENTRYPOINT ["entrypoint.sh"]
+
 CMD ["/usr/sbin/apache2ctl","-DFOREGROUND"]
 
