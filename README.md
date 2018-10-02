@@ -63,13 +63,27 @@ It creates a pod 'wordpress-mysql' running MySQL server. It claims the persisten
 ```sh
 env:
 - name: MYSQL_ROOT_PASSWORD
-  value: 1qazXSW2         #can be passed as secret from secretKeyRef
+  value: 1qazXSW2         
+
+#can be passed as secret from secretKeyRef  
+#- valueFrom:
+#     secretKeyRef:
+#        name: mysql-pass
+#        key: password
+
 - name: MYSQL_DATABASE
   value: wordpress
 - name: MYSQL_USER
   value: wpuser
 - name: MYSQL_PASSWORD
-  value: 1qazXSW2  #can be passed as secret from secretKeyRef 
+  value: 1qazXSW2   
+
+#can be passed as secret from secretKeyRef  
+#- valueFrom:
+#     secretKeyRef:
+#        name: mysql-pass
+#        key: password
+
 ```
 ```sh
 $cd minikube
@@ -85,7 +99,14 @@ env:
 - name: DB_HOST
   value: wordpress-mysql
 - name: DB_PASSWORD
-  value: 1qazXSW2  #can be passed as secret from secretKeyRef
+  value: 1qazXSW2  
+
+#can be passed as secret from secretKeyRef  
+#- valueFrom:
+#     secretKeyRef:
+#        name: mysql-pass
+#        key: password
+
 - name: DB_NAME
   value: wordpress
 - name: DB_USER
