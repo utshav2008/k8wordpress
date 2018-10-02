@@ -49,6 +49,7 @@ For MySQL, we will pull the image from Docker hub. We will need a persistent vol
 Inside the 'minikube' directory, I have kept below YAML files:
 
 - local-volumes.yaml
+
 This creates two persistent volumes with 20GB. This is on the HOST but we can use different options( NFS, Google, AWS ) to ceate these volumes. We need two persistent volumes, one for Wordpress and one for MySQL.
 
 ```sh
@@ -56,6 +57,7 @@ $cd minikube
 $kubectl create -f local-volumes.yaml
 ```
 - mysql-deployment.yaml
+
 It creates a pod 'wordpress-mysql' running MySQL server. It claims the persistent volume that we created in step one. It exposes its port 3306 to listen for connections from Wordpress. We provide the environment variables in it:
 
 ```sh
@@ -75,6 +77,7 @@ $kubectl create -f mysql-deployment.yaml
 ```
 
 - wordpress-deployment.yaml
+
 It creates a pod 'wordpress' with connectivity to the MySQL server. We need to pass correct environment variable in order to make the Wordpress install work.
 
 ```sh
