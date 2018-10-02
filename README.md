@@ -45,3 +45,51 @@ It takes DB_HOST, DB_PASSWORD, DB_NAME and DB_USER as environment variables. Thi
 For a Wordpress install to work, we need LAMP + Wordpress + MySQL in the Kubernetes cluster. LAMP stack and Wordpress install is taken care in the wordpress-custom image. However, we need a persistent volume for Wordpress when we run the Docker container in Kubernetes.
 
 For MySQL, we will pull the image from Docker hub. We will need a persistent volume for MySQL too. Once this is up in the cluster, Worpress will be able to connect to the database.
+
+Inside the 'minikube' directory, I have kept below YAML files:
+
+- local-volumes.yaml
+This creates two persistent volumes with 20GB. This is on the HOST but we can use different options( NFS, Google, AWS ) to ceate these volumes. We need two persistent volumes, one for Wordpress and one for MySQL.
+
+```sh
+$cd minikube
+$kubectl create -f local-volumes.yaml
+```
+- mysql-deployment.yaml
+It creates a pod 'wordpress-mysql' running MySQL server. It claims the persistent volume that we created in step one. It exposes its port 3306 to listen for connections from Wordpress. We provide the environment variables in it:
+
+```sh
+env:
+- name: MYSQL_ROOT_PASSWORD
+  value: 1qazXSW2
+- name: MYSQL_DATABASE
+  value: wordpress
+- name: MYSQL_USER
+  value: wpuser
+- name: MYSQL_PASSWORD
+  value: 1qazXSW2
+```
+```sh
+$cd minikube
+$kubectl create -f mysql-deployment.yaml
+```
+
+- wordpress-deployment.yaml
+It creates a pod 'wordpress' with connectivity to the MySQL server. We need to pass correct environment variable in order to make the Wordpress install work.
+
+```sh
+env:
+- name: DB_HOST
+  value: wordpress-mysql
+- name: DB_PASSWORD
+  value: 1qazXSW2
+- name: DB_NAME
+  value: wordpress
+- name: DB_USER
+  value: wpuser
+```
+
+```sh
+$cd minikube
+$kubectl create -f wordpress-deployment.yaml
+```
