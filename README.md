@@ -96,3 +96,7 @@ env:
 $cd minikube
 $kubectl create -f wordpress-deployment.yaml
 ```
+Genretating a secret in Kuberenetes:
+```sh
+kubectl create secret generic mysql-pass --from-literal=name=‘mysql-pass’ --from-literal=password=‘1qazXSW2’
+```
