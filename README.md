@@ -39,3 +39,9 @@ $ docker images | grep wordpress-custom # This is to verify if the image was bui
 ```
 
 It takes DB_HOST, DB_PASSWORD, DB_NAME and DB_USER as environment variables. This is for connecting to MySQL server.
+
+## Kubernetes:
+
+For a Wordpress install to work, we need LAMP + Wordpress + MySQL in the Kubernetes cluster. LAMP stack and Wordpress install is taken care in the wordpress-custom image. However, we need a persistent volume for Wordpress when we run the Docker container in Kubernetes.
+
+For MySQL, we will pull the image from Docker hub. We will need a persistent volume for MySQL too. Once this is up in the cluster, Worpress will be able to connect to the database.
