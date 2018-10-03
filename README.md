@@ -111,3 +111,13 @@ env:
 $cd minikube
 $kubectl create -f wordpress-deployment.yaml
 ```
+In order to make life easier I have added deployment srcipts inside minikube directory. You dont need to run each deployment manually and use these scripts to create and delete the deployments.
+```sh
+#To deploy
+$cd minikube
+$./deploy.sh
+
+#To delete
+$cd minikube
+$./delete.sh
+```
