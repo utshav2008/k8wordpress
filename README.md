@@ -62,14 +62,23 @@ It creates a pod 'wordpress-mysql' running MySQL server. It claims the persisten
 
 ```sh
 env:
-- name: MYSQL_ROOT_PASSWORD
-  value: 1qazXSW2         #can be passed as secret from secretKeyRef
 - name: MYSQL_DATABASE
   value: wordpress
 - name: MYSQL_USER
   value: wpuser
 - name: MYSQL_PASSWORD
-  value: 1qazXSW2  #can be passed as secret from secretKeyRef 
+  value: 1qazXSW2   
+- name: MYSQL_ROOT_PASSWORD
+  value: 1qazXSW2         
+
+#can be passed as secret from secretKeyRef  
+#- valueFrom:
+#     secretKeyRef:
+#        name: mysql-pass
+#        key: password
+
+#Genretating a secret in Kuberenetes:
+$kubectl create secret generic mysql-pass --from-literal=name=‘mysql-pass’ --from-literal=password=‘1qazXSW2’
 ```
 ```sh
 $cd minikube
@@ -84,19 +93,21 @@ It creates a pod 'wordpress' with connectivity to the MySQL server. We need to p
 env:
 - name: DB_HOST
   value: wordpress-mysql
-- name: DB_PASSWORD
-  value: 1qazXSW2  #can be passed as secret from secretKeyRef
 - name: DB_NAME
   value: wordpress
 - name: DB_USER
   value: wpuser
+- name: DB_PASSWORD
+  value: 1qazXSW2  
+
+#can be passed as secret from secretKeyRef  
+#- valueFrom:
+#     secretKeyRef:
+#        name: mysql-pass
+#        key: password  
 ```
 
 ```sh
 $cd minikube
 $kubectl create -f wordpress-deployment.yaml
-```
-Genretating a secret in Kuberenetes:
-```sh
-kubectl create secret generic mysql-pass --from-literal=name=‘mysql-pass’ --from-literal=password=‘1qazXSW2’
 ```
